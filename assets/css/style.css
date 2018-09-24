@@ -6,13 +6,8 @@
  */
 
 #addBtn {
-  width: 50px;
+  width: 90px;
   height: 50px;
-  border-radius: 100%;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  -o-border-radius: 100%;
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
 }

@@ -16,13 +16,18 @@
      'type new task and then click to add button',
      'This example demonstrates how to create a todo list app using pure javascript'
  ];
-
-
+var keyStore = null;
 
 // initialize addItem function
 addItem(listArry);
 
-// create addItem function
+
+
+/**
+ * @create addItem function
+ * @param : listArry
+ */
+
 function addItem(listArry){
     // define empty str
     var str = "";
@@ -31,7 +36,7 @@ function addItem(listArry){
     // value store in str
     listArry.forEach(function (value, key) {
         // store data in str
-        str += "<li class='list-group-item border'>" + value + "<button onclick='removeItem(this.parentNode)' class='btn btn-danger ti-close float-right'></button></li>";
+        str += "<li class='list-group-item border' data-key=" + key + " >" + value + "<button onclick='removeItem(this.parentNode)' class='btn btn-danger ti-close float-right' style='margin-left:3px' ></button> <button onclick='editItem(this.parentNode)' class='btn btn-warning ti-marker-alt float-right'></button> </li>";
     });
     
     // append to markup
@@ -42,32 +47,99 @@ function addItem(listArry){
 }
 
 
+/**
+ * @click event of add button
+ * @store data
+ */
 
- // click event of add button
- addBtn.addEventListener('click', function () {
+ addBtn.addEventListener('click', function (event) {
+
     // check input value
     if (input.value == '' || null ) {
         alert('please input something below the input box');
     }
     else {
-        listArry.push(input.value);
-        input.value = '';
+
+        if ( this.classList.contains('btn-warning') ) {
+            update();
+        }
+        else {
+            listArry.push(input.value);
+            input.value = '';
+            
+            // call addItem function
+            addItem(listArry);
+            listCount.innerHTML = listArry.length + ' Task Left';
+        }
+
         
-        // call addItem function
-        addItem(listArry);
     }
 });
 
 
-// create removeItem function
+/**
+ * @removeItem function
+ * @param : item
+ */
 function removeItem(item) {
-    // item remove
-   item.remove();
-    
+   
    // item remove form listArry
-   listArry.shift(item.parentNode);
+   listArry.splice(item.dataset.key , 1);
 
+    // item remove
+    item.remove();
+   
    // item count
    listCount.innerHTML = listArry.length + ' Task Left';
+
+   // call addItem function
+   addItem(listArry);
+    
+}
+
+
+/**
+ * @update function
+ * @param : -
+ */
+
+function update() {
+
+    //  update array
+    listArry[keyStore] = input.value;
+
+    // set keyStore null
+    keyStore = null;
+
+    // input empty 
+    input.value = '';
+
+    // classList add
+    // classList remove
+    addBtn.classList.remove("btn-warning");
+    addBtn.classList.add("btn-light");
+
+    // add items 
+    addItem(listArry);
+}
+
+
+/**
+ * @update editItem
+ * @param : item
+ */
+
+function editItem (item) {
+
+    // specific item by key
+    input.value = listArry[item.dataset.key];
+
+    // classList add
+    // classList remove
+    addBtn.classList.remove("btn-light");
+    addBtn.classList.add("btn-warning");
+    
+    // key store
+    keyStore = item.dataset.key;
     
 }
