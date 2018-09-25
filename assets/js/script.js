@@ -36,7 +36,7 @@ function addItem(listArry){
     // value store in str
     listArry.forEach(function (value, key) {
         // store data in str
-        str += "<li class='list-group-item border' data-key=" + key + " >" + value + "<button onclick='removeItem(this.parentNode)' class='btn btn-danger ti-close float-right' style='margin-left:3px' ></button> <button onclick='editItem(this.parentNode)' class='btn btn-warning ti-marker-alt float-right'></button> </li>";
+        str += "<li class='list-group-item border' data-key=" + key + " >" + value + "<button onclick='removeItem(this.parentNode)' class='btn btn-danger ti-close float-right rounded-0' style='margin-left:3px' ></button> <button onclick='editItem(this.parentNode)' class='btn btn-warning ti-marker-alt float-right rounded-0'></button> </li>";
     });
     
     // append to markup
